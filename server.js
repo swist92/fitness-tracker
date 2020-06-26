@@ -58,6 +58,9 @@ app.get("/api/workouts/stats", (req, res) => {
   console.log(req.body);
 });
 
+require("/routes/apiroutes")(app);
+require("/routes/htmlroutes")(app);
+
 app.listen(PORT, function () {
   console.log(`Listening on PORT ${PORT}`);
 });
