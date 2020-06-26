@@ -45,7 +45,7 @@ app.get("/api/workouts", (req, res) => {
       res.send(error);
     } else {
       console.log(data);
-      screen.json(data);
+      res.json(data);
     }
   });
 });
