@@ -6,8 +6,8 @@ const Workout = require("./models.workouts");
 
 const PORT = process.env.PORT || 3030;
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",{
-    useNewUrlParser: true
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+  useNewUrlParser: true,
 });
 
 const app = express;
@@ -20,22 +20,44 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'exercise.html'));
+  res.sendFile(path.join(__dirname, "public", "exercise.html"));
 });
 
 app.get("/stats", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'stats.html'));
+  res.sendFile(path.join(__dirname, "public", "stats.html"));
 });
 
 app.post("/api/workouts", (req, res) => {
-    Workout.create({
-        day: new Date()
-    })
-        .then((data) => res.json(data))
-        .catch(event => console.error(event))
+  Workout.create({
+    day: new Date(),
+  })
+    .then((data) => res.json(data))
+    .catch((event) => console.error(event));
 });
 
+app.get("/api/workouts", (req, res) => {
+  Workout.find({}, (error, data) => {
+    if (error) {
+      res.send(error);
+    } else {
+      console.log(data);
+      screen.json(data);
+    }
+  });
+});
+
+app.get("/api/workouts/stats", (req, res) => {
+  Workout.find()
+    .limit(7)
+    .then((workout) => res.json(workout))
+    .catch((error) => console.error(error));
+  console.log(req.body);
+});
+
+app.listen(PORT, function () {
+  console.log(`Listening on PORT ${PORT}`);
+});
