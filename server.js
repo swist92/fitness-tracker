@@ -1,4 +1,4 @@
-const express = require("express");
+const app = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const logger = require("morgan");
@@ -10,7 +10,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
 });
 
-const app = express;
 
 app.use(logger("dev")); // error: says app.use is not a function //
 
