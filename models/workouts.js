@@ -46,3 +46,7 @@ workoutSchema.virtual("totalDuration").get(function () {
     return total + exercises.duration;
   }, 0);
 });
+
+const Workout = mongoose.model("Workout", workoutSchema);
+
+module.exports = Workout;
